@@ -1,0 +1,308 @@
+1. let and const
+Modern JavaScript mein generally var avoid karke let aur const use karte hain.
+let - Value ko baad mein change kar sakte hain:
+	let age = 25;
+	age = 26;
+	console.log(age); // 26
+const - Variable ko reassign nahi kar sakte:
+	const name = "Saurav";
+	name = "Rahul"; // Error
+
+Important interview point
+const ka matlab immutable value nahi hota.
+	const user = {
+    		name: "Saurav",
+    		age: 25
+	};
+	user.age = 26;
+	console.log(user); //Ye valid hai.Kyun?
+	//Kyunki : user variable ko kisi doosre object par point nahi kar sakte:
+	user = {}; // Error //Lekin existing object ki property modify kar sakte ho.
+Similarly:
+	const numbers = [1, 2, 3];
+	numbers.push(4);
+	console.log(numbers); // [1, 2, 3, 4]
+
+
+Interview question: Is const object immutable?
+Answer: No. const prevents reassignment of the variable binding; it doesn't make the object itself immutable.
+--------------------------------------------------------------------------
+
+2. Data Types
+JavaScript mein important primitive types:
+string
+number
+boolean
+undefined
+null
+bigint
+symbol
+Non primitive type : object
+
+let name = "Saurav";       // string
+let age = 25;              // number
+let price = 99.99;         // number
+let isActive = true;       // boolean
+let result;                // undefined
+let data = null;           // null
+let user = { name: "A" };  // object
+let products = [1, 2, 3];  // object
+
+Check karne ke liye:
+console.log(typeof name);
+console.log(typeof age);
+console.log(typeof isActive);
+
+Important weird JavaScript behavior
+console.log(typeof null); //Output : object //Ye JavaScript ka historical quirk hai.
+
+undefined vs null
+undefined : Variable exist karta hai but value assign nahi hui:
+	let user;
+	console.log(user); // undefined
+null : Developer intentionally bol raha hai:"Currently koi value nahi hai."
+	let selectedUser = null;
+
+==================================================================
+3. Operators
+Important categories:
+Arithmetic
++ 
+-
+*
+/
+%
+**
+
+Example:
+	console.log(10 + 3); // 13
+	console.log(10 % 3); // 1
+	console.log(2 ** 3); // 8
+
+Comparison
+>
+<
+>=
+<=
+==
+===
+!=
+!==
+
+Sabse important: == vs ===
+	console.log(5 == "5");  // true // == type conversion kar sakta hai.
+	console.log(5 === "5"); // false // === value and type dono check karta hai.
+	// Modern development mein generally === prefer karte hain.
+
+Logical operators
+&&
+||
+!
+
+Example:
+	let age = 25;
+	let hasLicense = true;
+	if (age >= 18 && hasLicense) {
+    	 console.log("Can drive");
+	}
+
+&& = dono conditions true.
+	if (isAdmin || isManager) {
+    	 console.log("Access granted");
+	}
+
+|| = koi ek true.
+	if (!isLoggedIn) {
+    	 console.log("Please login");
+	}
+
+! = opposite.
+
+===============================================================
+4. if / else
+Basic:
+	let age = 20;
+	if (age >= 18) {
+    	 console.log("Adult");
+	} else {
+    	 console.log("Minor");
+	}
+
+Multiple conditions:
+	let marks = 72;
+	if (marks >= 90) {
+    	 console.log("A");
+	} else if (marks >= 75) {
+    	 console.log("B");
+	} else if (marks >= 50) {
+    	 console.log("C");
+	} else {
+    	 console.log("Fail");
+	}
+
+Practical example : Suppose ecommerce application hai
+	let stock = 0;
+	if (stock > 0) {
+    	 console.log("In Stock");
+	} else {
+    	 console.log("Out of Stock");
+	}
+==============================================
+5. switch - Jab ek variable ki multiple specific values check karni ho:
+	let role = "seller";
+	switch (role) {
+    	case "admin":
+         console.log("Admin Dashboard");
+         break;
+	case "seller":
+         console.log("Seller Dashboard");
+         break;
+	case "customer":
+         console.log("Customer Dashboard");
+         break;
+    	default:
+         console.log("Unknown role");
+	}
+
+break important hai
+Agar break nahi lagaya:To output multiple cases tak ja sakta hai because of fall-through.
+Ye interview mein poocha ja sakta hai.
+	let role = "seller";
+	switch (role) {
+    	case "seller":
+         console.log("Seller");
+   	case "customer":
+         console.log("Customer");
+	}
+
+
+if/else vs switch
+Rough rule:
+	Ranges / complex conditions → if/else
+	Specific fixed values → switch
+
+========================================================
+6. for loop : Jab pata ho ki iteration ka structure kya hai:
+	for (let i = 1; i <= 5; i++) {
+    	 console.log(i);
+	}
+Output:
+1
+2
+3
+4
+5
+
+Practical:
+	const products = ["Fish", "Aquarium", "Plant"];
+	for (let i = 0; i < products.length; i++) {
+ 	 console.log(products[i]);
+	}
+
+Notice: i < products.length
+not: i <= products.length
+Because array indexes: 0 1 2
+
+==============================================================
+7. while : Jab condition ke basis par loop chalana ho:
+	let i = 1;
+	while (i <= 5) {
+    	 console.log(i);
+    	 i++;
+	}
+
+Very important 
+	let i = 1;
+	while (i <= 5) {
+    	 console.log(i);
+	}
+Ye dangerous hai: Because i change hi nahi ho raha.
+Result: infinite loop
+===============================================================
+8. Functions : reusable block of code.
+	function greet() {
+    	 console.log("Hello");
+	}
+	greet();
+	greet();
+	greet();
+
+Instead of repeating code:
+	console.log("Hello");
+	console.log("Hello");
+	console.log("Hello");
+
+Practical example :
+	function calculateTotal(price, quantity) {
+    	 return price * quantity;
+	}
+	const total = calculateTotal(500, 3);
+	console.log(total);
+Output: 1500
+
+Ye actual development thinking hai: Repeated logic ko reusable function mein convert karna.
+
+=========================================================
+9. Parameters and Return
+	function add(a, b) {
+    	 return a + b;
+	}
+Here: a, b = parameters
+
+Call: add(10, 20);
+Here: 10, 20 = arguments
+-------------------------------------
+return : return function ka result caller ko deta hai.
+	function square(number) {
+      	 return number * number;
+	}
+	const result = square(5);
+	console.log(result); // 25
+
+-----------------------------------
+console.log() vs return
+	function add(a, b) {
+    	 console.log(a + b);
+	}
+	const result = add(2, 3);
+	console.log(result);
+
+Output:
+5
+undefined
+
+Kyun? : Function ne value print ki, return nahi ki.
+Correct:
+	function add(a, b) {
+    	 return a + b;
+	}
+	const result = add(2, 3);
+	console.log(result);
+Output:
+5
+-----------------------------------------
+Interview question: What's the difference between return and console.log()?
+Answer: console.log() displays something in the console;
+	return sends a value back from the function and can be stored/used by the caller.
+
+=========================================
+10. Arrow Functions
+Normal function:
+	function add(a, b) {
+    	 return a + b;
+	}
+
+Arrow:
+	const add = (a, b) => {
+    	 return a + b;
+	};
+
+Short form:
+	const add = (a, b) => a + b;
+
+Arrow function can be used with map, filter, find etc.:
+	const numbers = [1, 2, 3, 4];
+	const doubled = numbers.map(number => number * 2);
+	console.log(doubled);
+Output:
+[2, 4, 6, 8]

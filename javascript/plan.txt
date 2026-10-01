@@ -1,0 +1,83 @@
+Phase 1 — Core JavaScript
+let, const
+Data types
+Operators
+if / else
+switch
+for
+while
+Functions
+Parameters and return
+Arrow functions
+- Then practice by writing small programs yourself.
+
+Phase 2 — The important JavaScript
+Arrays
+Objects
+Strings
+map()
+filter()
+find()
+some()
+every()
+reduce()
+Destructuring
+Spread/rest
+Template literals
+Optional chaining ?.
+Nullish coalescing ??
+
+Phase 3 — JavaScript that developers actually use
+Scope
+Hoisting
+Closures
+this
+Callbacks
+Higher-order functions
+Objects
+Classes
+Modules
+import
+export
+Error handling
+try/catch
+
+Phase 4 — Browser JavaScript - This is very important for getting a frontend job.
+DOM
+querySelector
+querySelectorAll
+Creating elements
+Changing text
+Changing classes
+Forms
+Input events
+Click events
+Event bubbling
+Event delegation
+localStorage
+JSON
+
+Phase 5 — API + asynchronous JavaScript
+Callback
+   ↓
+Promise
+   ↓
+async / await
+   ↓
+fetch()
+   ↓
+JSON
+   ↓
+API
+
+
+Phase 6 - Weather/API application
+Search city
+     ↓
+API request
+     ↓
+fetch()
+     ↓
+JSON response
+     ↓
+Display result
