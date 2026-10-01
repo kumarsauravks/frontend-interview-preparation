@@ -1,0 +1,360 @@
+CSS Phase 1 
+
+Topic 1: CSS kya hai?
+CSS = Cascading Style Sheets
+HTML page ka structure banata hai, CSS us structure ka appearance/layout control karta hai.
+Example:
+	<h1>Hello World</h1>
+Without CSS: Hello World
+
+CSS:
+	h1 {
+    	 color: blue;
+    	 font-size: 40px;
+	}
+Ab browser h1 ko blue aur 40px ka render karega.
+
+Interview answer :
+CSS is used to style and layout HTML elements. It controls things like colors, fonts, spacing, positioning, responsiveness, animations, and overall visual presentation of a webpage.
+-------------------------------------------------------------------
+Topic 2 : CSS add karne ke 3 ways
+1. Inline CSS - Direct element ke andar.
+	<h1 style="color: red;">Hello</h1>
+Note : Usually avoid in real projects because maintainability poor hoti hai.
+
+2. Internal CSS - Same HTML file mein CSS.
+	<head>
+    	<style>
+         h1 {
+            color: red;
+         }
+    	</style>
+	</head>
+
+3. External CSS ⭐
+HTML:
+<link rel="stylesheet" href="style.css">
+
+style.css:
+h1 {
+    color: red;
+}
+
+Note : Real projects mein external CSS / CSS architecture commonly preferred hoti hai.
+	Angular/Tailwind projects mein bhi concept important hai because browser ultimately CSS rules hi apply karta hai.
+
+--------------------------------------------------------------
+Topic 3 — CSS Syntax
+Basic structure:
+	selector {
+    	 property: value;
+	}
+Example:
+	p {
+    	 color: green;
+    	 font-size: 20px;
+	}
+Yahan:
+- p → selector
+- color → property
+- green → value
+- font-size → property
+- 20px → value
+
+Multiple properties:
+.card {
+    width: 300px;
+    padding: 20px;
+    background: white;
+    border: 1px solid gray;
+}
+
+----------------------------------------------
+Topic 4 — CSS Selectors ⭐⭐⭐
+Ye bahut important interview topic hai.
+Element selector
+	p {
+   	 color: red;
+	}
+Saare <p> elements select honge.
+
+Class selector
+HTML:
+	<p class="title">Hello</p>
+CSS:
+	.title {
+    	 color: blue;
+	}
+. means : class
+
+ID selector
+	<p id="heading">Hello</p>
+	#heading {
+    	 color: green;
+	}
+# means : ID
+
+Universal selector
+	* {
+    	 margin: 0;
+    	 padding: 0;
+	}
+Page ke all elements select honge.
+
+Multiple selectors
+	h1,
+	h2,
+	p {
+    	 color: red;
+	}
+Teenon par same CSS apply hogi.
+
+----------------------------------------------------------
+Topic 5 — Descendant selector
+HTML:
+	<div class="card">
+    		<p>Hello</p>
+	</div>
+CSS:
+	.card p {
+    	 color: red;
+	}
+Meaning:
+.card ke andar jo bhi p hai usko select karo.
+
+Example:
+	<div class="card">
+    		<p>Red</p>
+    	 <div>
+        	<p>Also Red</p>
+    	 </div>
+	</div>
+Dono <p> select honge.
+
+-----------------------------------------------------------
+Topic 6 — Child selector >
+	.card > p {
+    	 color: red;
+	}
+Iska meaning:
+	.card ka direct child p select karo.
+Example:
+<div class="card">
+    <p>RED</p>
+    <div>
+        <p>NOT SELECTED</p>
+    </div>
+</div>
+Sirf first <p> select hoga.
+
+Interview difference
+.card p (means any descendant)
+.card > p (means direct child only.)
+
+---------------------------------------------------------------
+Topic 7 — Attribute selector
+HTML:
+	<input type="text">
+	<input type="email">
+	<input type="password">
+CSS:
+	input[type="text"] {
+       	 border: 2px solid blue;
+	}
+Sirf text input select hoga.
+
+Another example:
+a[target="_blank"] {
+    color: red;
+}
+
+---------------------------------------------------------------
+Topic 8 — Pseudo-class
+Pseudo-class element ki state/condition ko target karta hai.
+	button:hover {
+    	 background: black;
+	}
+Mouse hover hone par style apply.
+
+Other examples:
+	input:focus {
+      	 border-color: blue;
+	}
+	
+	button:active {
+    	 transform: scale(0.95);
+	}
+
+	li:first-child {
+    	 color: red;
+	}
+
+	li:last-child {
+     	 color: blue;
+	}
+
+----------------------------------------------------------
+Topic 9 — Pseudo-element
+Pseudo-element element ke part/content ko target karta hai.
+Common:
+p::before {
+    content: "→ ";
+}
+
+p::after {
+    content: " ✓";
+}
+
+Other important:
+::first-letter
+::first-line
+::selection
+
+Pseudo-class vs pseudo-element
+Remember:
+:hover       → pseudo-class
+::before     → pseudo-element
+
+Generally:
+single : → pseudo-class
+double :: → pseudo-element
+----------------------------------------------------------
+Topic 10 — Cascade & Specificity ⭐⭐⭐⭐⭐
+Ye CSS ka very important interview area hai.
+Suppose:
+	<p id="text" class="message">
+    	 Hello
+	</p>
+CSS:
+	p {
+    	 color: blue;
+	}
+
+	.message {
+    	 color: green;
+	}
+
+	#text {
+    	 color: red;
+	}
+
+Final color? Red - Because ID selector has higher specificity than class and element selector.
+
+Basic specificity order:
+Inline style
+     ↓
+    ID
+     ↓
+Class / attribute / pseudo-class
+     ↓
+Element / pseudo-element
+
+For example:
+p { color: blue; }          /* element */
+.message { color: green; }  /* class */
+#text { color: red; }       /* ID */
+
+ID wins.
+But specificity is actually more nuanced than this simple hierarchy. Later we'll learn the specificity calculation system, including:
+0-0-0-0
+
+and how :is(), :where(), :not(), :has() affect specificity.
+
+-----------------------------------------------------------------
+Topic 11 — !important
+Example:
+	p {
+    	 color: red !important;
+	}
+!important gives the declaration very high priority within the relevant cascade rules.
+But don't use it casually.
+Bad:
+	.button {
+    	 color: red !important;
+	}
+Then later:
+	.button {
+    	 color: blue !important;
+	}
+CSS maintain karna difficult ho sakta hai.
+
+Should we use !important?
+Good answer:
+It should generally be avoided because excessive use makes the cascade harder to manage and override. It is useful in specific situations, but it shouldn't be the default solution to specificity problems.
+
+----------------------------------------------------------------
+Topic 12 — CSS Box Model ⭐⭐⭐⭐⭐
+Every normal HTML element ko roughly ek box ki tarah samjho:
+┌──────────────────────────────┐
+│            Margin            │
+│   ┌──────────────────────┐   │
+│   │       Border         │   │
+│   │  ┌────────────────┐  │   │
+│   │  │    Padding     │  │   │
+│   │  │  ┌──────────┐  │  │   │
+│   │  │  │ Content  │  │  │   │
+│   │  │  └──────────┘  │  │   │
+│   │  └────────────────┘  │   │
+│   └──────────────────────┘   │
+└──────────────────────────────┘
+
+Four parts:
+1. Content
+2. Padding
+3. Border
+4. Margin
+Example:
+.card {
+    width: 300px;
+    padding: 20px;
+    border: 5px solid black;
+    margin: 30px;
+}
+
+box-sizing ⭐⭐⭐⭐⭐
+Default:
+box-sizing: content-box;
+
+Suppose:
+.box {
+    width: 300px;
+    padding: 20px;
+    border: 5px solid black;
+}
+
+With content-box:
+Total width
+= 300 + 20 + 20 + 5 + 5
+= 350px
+
+This surprises beginners.
+That's why many projects use:
+* {
+    box-sizing: border-box;
+}
+
+Now:
+.box {
+    width: 300px;
+    padding: 20px;
+    border: 5px solid black;
+}
+
+Total outer width stays:
+300px
+
+Padding and border are included inside the specified width.
+Interview question
+Q: Difference between content-box and border-box?
+Answer:
+With content-box, the declared width/height applies only to the content area. With border-box, the declared width/height includes content, padding, and border.
+
+
+----------------------------------
+Other advanced CSS topics:
+:nth-child()
+:nth-of-type()
+:not()
+:is()
+:where()
+:has()
